@@ -5,13 +5,13 @@
         <div class="container-fluid">
             <!-- bof: logo -->
             <a class="brand" href="<?php echo site_url(); ?>">
-                <img src="<?php echo base_url('resources/img/logo.png'); ?>" alt="logo" />
+                <img src="<?php echo res_url('img/logo.png'); ?>" alt="logo" />
             </a>
             <!-- eof: logo -->
 
             <!-- bof: reponsive menu toggler -->
             <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-                <img src="<?php echo base_url('resources/img/menu-toggler.png'); ?>" alt="" />
+                <img src="<?php echo res_url('img/menu-toggler.png'); ?>" alt="" />
             </a>
             <!-- eof: reponsive menu toggler -->
 
@@ -88,7 +88,7 @@
                         </li>
                         <li>
                             <a href="inbox.html?a=view">
-                            <span class="photo"><img src="<?php echo base_url('resources/img/avatar2.jpg'); ?>" alt="" /></span>
+                            <span class="photo"><img src="<?php echo res_url('img/avatar2.jpg'); ?>" alt="" /></span>
                             <span class="subject">
                             <span class="from">Lisa Wong</span>
                             <span class="time">Just Now</span>
@@ -101,7 +101,7 @@
                         </li>
                         <li>
                             <a href="inbox.html?a=view">
-                            <span class="photo"><img src="<?php echo base_url('resources/img/avatar3.jpg'); ?>" alt="" /></span>
+                            <span class="photo"><img src="<?php echo res_url('img/avatar3.jpg'); ?>" alt="" /></span>
                             <span class="subject">
                             <span class="from">Richard Doe</span>
                             <span class="time">16 mins</span>
@@ -114,7 +114,7 @@
                         </li>
                         <li>
                             <a href="inbox.html?a=view">
-                            <span class="photo"><img src="<?php echo base_url('resources/img/avatar1.jpg'); ?>" alt="" /></span>
+                            <span class="photo"><img src="<?php echo res_url('img/avatar1.jpg'); ?>" alt="" /></span>
                             <span class="subject">
                             <span class="from">Bob Nilson</span>
                             <span class="time">2 hrs</span>
@@ -222,7 +222,7 @@
                 <!-- bof: user login dropdown -->
                 <li class="dropdown user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo base_url('resources/img/avatar1_small.jpg'); ?>" alt="" />
+                        <img src="<?php echo res_url('img/avatar1_small.jpg'); ?>" alt="" />
                         <span class="username">Bob Nilson</span>
                         <i class="icon-angle-down"></i>
                     </a>

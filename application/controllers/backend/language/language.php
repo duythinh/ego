@@ -10,16 +10,14 @@ class Language extends BE_Controller
         parent::__construct();
 
         $this->config->load('common/status');
-        $this->load->model('backend/language_m');
+        $this->lang->load('language/language');
     }
 
     public function index()
     {
-        $this->data['view'] = 'language/index';
+        $this->data['view'] = 'language/language/index';
         $this->data['active']['language/index'] = true;
-        $this->language('language/index');
-
-        $this->data['languages'] = $this->language_m->get();
+        $this->lang->load('language/language/index');
 
         $this->load->view('main_layout', $this->data);
     }
@@ -30,9 +28,9 @@ class Language extends BE_Controller
             $this->_add();
         }
 
-        $this->data['view'] = 'language/add';
+        $this->data['view'] = 'language/language/add';
         $this->data['active']['language/add'] = true;
-        $this->language('language/add');
+        $this->lang->load('language/language/add');
 
         $this->load->view('main_layout', $this->data);
     }
@@ -57,9 +55,9 @@ class Language extends BE_Controller
             }
         }
 
-        $this->data['view'] = 'language/edit';
+        $this->data['view'] = 'language/language/edit';
         $this->data['active']['language/edit'] = true;
-        $this->language('language/edit');
+        $this->lang->load('language/language/edit');
 
         $this->load->view('main_layout', $this->data);
     }
@@ -84,19 +82,16 @@ class Language extends BE_Controller
             }
         }
 
-        $this->data['view'] = 'language/delete';
+        $this->data['view'] = 'language/language/delete';
         $this->data['active']['language/delete'] = true;
-        $this->language('language/delete');
+        $this->lang->load('language/language/delete');
 
         $this->load->view('main_layout', $this->data);
     }
 
     private function _add()
     {
-        $this->language('language/add');
-
-        // create a new language
-        $this->data['language'] = $this->language_m->get_new();
+        $this->lang->load('language/language/add');
 
         // setup the form
         $rules = $this->language_m->get_rules();
@@ -104,7 +99,7 @@ class Language extends BE_Controller
 
         // process the form
         if (true === $this->form_validation->run()) {
-            $data = $this->language_m->array_from_post(array('name', 'native_name', 'alias', 'code', 'encoding', 'sort_order', 'translable'));
+            $data = $this->language_m->post_data(array('name', 'native_name', 'alias', 'code', 'encoding', 'sort_order', 'translable'));
 
             $data['sort_order'] = (int)$data['sort_order'];
             $data['translable'] = (int)$data['translable'];
@@ -125,10 +120,7 @@ class Language extends BE_Controller
     {
         $id = (int)$this->input->post('id');
         $this->data['language'] = $this->language_m->get($id);
-        $this->language('language/add');
-
-        // create a new language
-        $this->data['language'] = $this->language_m->get_new();
+        $this->lang->load('language/language/add');
 
         // setup the form
         $rules = $this->language_m->get_rules();
@@ -136,16 +128,11 @@ class Language extends BE_Controller
 
         // process the form
         if (true === $this->form_validation->run()) {
-            $data = $this->language_m->array_from_post(array('name', 'native_name', 'alias', 'code', 'encoding', 'sort_order', 'translable'));
+            $data = $this->language_m->post_data(array('name', 'native_name', 'alias', 'code', 'encoding', 'sort_order', 'translable', 'status'));
 
             $data['sort_order'] = (int)$data['sort_order'];
             $data['translable'] = (int)$data['translable'];
-            $data['status'] = 0;
-            if (is_array($this->input->post('status')) && count($this->input->post('status'))) {
-                foreach ($this->input->post('status') as $status) {
-                    $data['status'] += $status;
-                }
-            }
+            $data['status'] = array_sum($data['status']);
 
             $this->language_m->save($data, $id);
 

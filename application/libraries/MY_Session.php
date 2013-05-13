@@ -319,12 +319,18 @@ class MY_Session
      * @param  mixed  $default session value
      * @return mixed           session value
      */
-    public function get($key = null, $default = null)
+    public function get($key = null, $default = null, $filter = null)
     {
+        $filter = strval($filter);
+
+        if ( ! empty($filter) && ! function_exists($filter)) {
+            show_error('The Filter Function <strong>' . $filter . '</strong> Does Not Exists!');
+        }
+
         if (is_null($key)) {
             return $this->data;
         } else if (isset($this->data[$key])) {
-            return $this->data[$key];
+            return (empty($filter) ? $this->data[$key] : $filter($this->data[$key]));
         } else {
             return $default;
         }

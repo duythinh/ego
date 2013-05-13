@@ -5,12 +5,12 @@ class Dashboard extends BE_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->lang->load('dashboard');
     }
 
     public function index()
     {
-        $this->data['lang'] = array_merge($this->data['lang'], $this->lang->load('dashboard'));
-
         $this->load->view('main_layout', $this->data);
     }
 }

@@ -54,6 +54,8 @@ define('SCRIPT',     $_SERVER['SCRIPT_NAME']);
 define('USER_AGENT', $_SERVER['HTTP_USER_AGENT']);
 define('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
 
+// debugging
+define('PROFILER',   false);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

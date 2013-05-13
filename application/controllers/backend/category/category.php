@@ -19,20 +19,22 @@ class Category extends BE_Controller
         $this->data['active']['category/index'] = true;
         $this->language('category/index');
 
-        $this->data['languages'] = $this->category_m->get();
+        $this->data['languages'] = $this->language_m->get();
 
         $this->load->view('main_layout', $this->data);
     }
 
     public function add()
     {
+        $this->language('category/add');
+
         if ('POST' === @REQUEST_METHOD) {
             $this->_add();
         }
 
         $this->data['view'] = 'category/add';
         $this->data['active']['category/add'] = true;
-        $this->language('category/add');
+        $this->data['languages'] = $this->language_m->get();
 
         $this->load->view('main_layout', $this->data);
     }
@@ -93,18 +95,38 @@ class Category extends BE_Controller
 
     private function _add()
     {
-        $this->language('language/add');
+        foreach ($this->data['languages'] as $language) {
+            if ($this->data['default_language'] === $language->code) {
+                $rules_category_type_name = 'trim|required|min_length[3]|max_length[64]|xss_clean';
+                $rules_category_type_description = 'trim|max_length[255]|xss_clean';
+            } else {
+                $rules_category_type_name = 'trim';
+                $rules_category_type_description = 'trim';
+            }
+
+            $this->category_m->set_rules('category_type[name][' . $language->code . ']', array(
+                'field' => 'category_type[name][' . $language->code . ']',
+                'label' => 'lang:category_type_name',
+                'rules' => $rules_category_type_name
+            ));
+
+            $this->category_m->set_rules('category_type[description][' . $language->code . ']', array(
+                'field' => 'category_type[description][' . $language->code . ']',
+                'label' => 'lang:category_type_description',
+                'rules' => $rules_category_type_description
+            ));
+        }
 
         // create a new language
-        $this->data['language'] = $this->language_m->get_new();
+        $this->data['language'] = $this->category_m->get_new();
 
         // setup the form
-        $rules = $this->language_m->get_rules();
+        $rules = $this->category_m->get_rules();
         $this->form_validation->set_rules($rules);
 
         // process the form
         if (true === $this->form_validation->run()) {
-            $data = $this->language_m->array_from_post(array('name', 'native_name', 'alias', 'code', 'encoding', 'sort_order', 'translable'));
+            $data = $this->category_m->array_from_post(array('name', 'native_name', 'alias', 'code', 'encoding', 'sort_order', 'translable'));
 
             $data['sort_order'] = (int)$data['sort_order'];
             $data['translable'] = (int)$data['translable'];
@@ -115,9 +137,9 @@ class Category extends BE_Controller
                 }
             }
 
-            $this->language_m->save($data);
+            $this->category_m->save($data);
 
-            redirect(full_url('language'));
+            redirect(full_url('category'));
         }
     }
 

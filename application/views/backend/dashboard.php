@@ -23,7 +23,7 @@
         <!-- eof: style customizer -->
 
         <!-- bof: page title and breadcrumb -->
-        <h3 class="page-title"><?php echo $lang['heading_title']; ?> <small><?php echo $lang['heading_description']; ?></small></h3>
+        <h3 class="page-title"><?php echo $this->lang->line('heading_title'); ?> <small><?php echo $this->lang->line('heading_description'); ?></small></h3>
 
         <ul class="breadcrumb">
             <li><i class="icon-home"></i><a href="index.html">Home</a><i class="icon-angle-right"></i>

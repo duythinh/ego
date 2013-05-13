@@ -8,30 +8,24 @@ class BE_Controller extends MY_Controller
 
         $this->config->set_item('in_admin', true);
 
-        // // $this->session->set('user_id', 1);
-        // if (!$this->session->get('user_id')) {
-        //     redirect(site_url('login'));
-        // }
-
+        $this->load->model('backend/language/language_m');
         $this->load->library('form_validation');
 
-        $this->language('components/cphome');
-        $this->language('components/sidebar');
+        $this->lang->load('components/cphome');
+        $this->lang->load('components/sidebar');
 
         $this->data['view'] = strtolower(get_class($this));
         $this->data['active'][$this->data['view']] = true;
-    }
 
-    private function generate_active($views = array(), $prefix = null)
-    {
-        foreach ($views as $index => $value) {
-            if (is_array($value)) {
-                $this->data['active'][$index] = null;
-                $this->generate_active($value, $index . '/');
-            } else {
-                $this->data['active'][$prefix . $value] = null;
-            }
-        }
+        $this->lang->set($this->language_m->get());
+
+        $this->session->set('language', $this->lang->get(1));
+        $this->session->set('user_id', 1);
+
+        $user = new stdClass();
+        $user->id = 1;
+        $user->email = 'test';
+        $this->session->set('user', $user);
     }
 }
 

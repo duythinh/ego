@@ -25,7 +25,9 @@ $language = array(
     'is_natural_no_zero' => 'The <strong>%s</strong> field must contain a number greater than zero.',
     'decimal'            => 'The <strong>%s</strong> field must contain a decimal number.',
     'less_than'          => 'The <strong>%s</strong> field must contain a number less than %s.',
-    'greater_than'       => 'The <strong>%s</strong> field must contain a number greater than %s.'
+    'greater_than'       => 'The <strong>%s</strong> field must contain a number greater than %s.',
+
+    'null_or_min_length' => 'The <strong>%s</strong> field must be null or at least %s characters in length.'
 );
 
 /* End of file form_validation_lang.php */

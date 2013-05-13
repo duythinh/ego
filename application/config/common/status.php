@@ -4,7 +4,8 @@ $config = array(
     'status' => array(
         '1' => 'Active',
         '2' => 'Suppend',
-        '4' => 'Deleted'
+        '4' => 'Deleted',
+        '8' => 'Test Status'
     )
 );
 

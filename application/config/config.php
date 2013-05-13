@@ -25,7 +25,7 @@ function __autoload($class)
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://chjpz.vn/eGo/';
+$config['base_url']	= 'http://localhost/eGo/';
 
 /*
 |--------------------------------------------------------------------------

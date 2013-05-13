@@ -11,14 +11,8 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
 
-        $this->data['lang'] = array();
-    }
-
-    protected function language($language)
-    {
-        $this->data['lang'] = array_merge(
-            $this->data['lang'],
-            $this->lang->load($language)
-        );
+        if (true === PROFILER) {
+            $this->output->enable_profiler(TRUE);
+        }
     }
 }

@@ -4,11 +4,11 @@
         <?php if (! isset($language)): ?>
         <div class="alert alert-block alert-error fade in">
             <button type="button" class="close" data-dismiss="alert"></button>
-            <h4 class="alert-heading"><?php echo $lang['error']; ?>!</h4>
-            <p><?php echo $lang['invalid_input']; ?></p>
+            <h4 class="alert-heading"><?php echo $this->lang->line('error'); ?>!</h4>
+            <p><?php echo $this->lang->line('invalid_input'); ?></p>
             <p class="pull-right">
-                <a class="btn green" href="<?php echo site_url('language/add'); ?>"><?php echo $lang['add_new_language']; ?></a>
-                <a class="btn blue" href="<?php echo site_url('language'); ?>"><?php echo $lang['language_manager']; ?></a>
+                <a class="btn green" href="<?php echo site_url('language/add'); ?>"><?php echo $this->lang->line('add_new_language'); ?></a>
+                <a class="btn blue" href="<?php echo site_url('language'); ?>"><?php echo $this->lang->line('language_manager'); ?></a>
             </p>
 
             <div class="clearfix"></div>
@@ -16,11 +16,11 @@
         <?php else: ?>
         <div class="alert alert-block alert-success fade in">
             <button type="button" class="close" data-dismiss="alert"></button>
-            <h4 class="alert-heading"><?php echo $lang['success']; ?>!</h4>
-            <p><?php echo sprintf($lang['success_message'], $language->name); ?></p>
+            <h4 class="alert-heading"><?php echo $this->lang->line('success'); ?>!</h4>
+            <p><?php echo sprintf($this->lang->line('success_message'), $language->name); ?></p>
             <p class="pull-right">
-                <a class="btn green" href="<?php echo site_url('language/add'); ?>"><?php echo $lang['add_new_language']; ?></a>
-                <a class="btn blue" href="<?php echo site_url('language'); ?>"><?php echo $lang['language_manager']; ?></a>
+                <a class="btn green" href="<?php echo site_url('language/add'); ?>"><?php echo $this->lang->line('add_new_language'); ?></a>
+                <a class="btn blue" href="<?php echo site_url('language'); ?>"><?php echo $this->lang->line('language_manager'); ?></a>
             </p>
 
             <div class="clearfix"></div>
