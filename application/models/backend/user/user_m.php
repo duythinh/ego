@@ -10,9 +10,8 @@ class User_m extends MY_Model
     {
         parent::__construct();
         $this->set_table('user');
-        $this->set_timestamps(true);
         $this->set_translable(false);
-
+        $this->set_timestamps(true);
         $this->add_rule('name', array(
             'field' => 'name',
             'label' => 'lang:name',
@@ -34,13 +33,6 @@ class User_m extends MY_Model
             'label' => 'lang:email',
             'rules' => 'trim|required|valid_email|xss_clean'
         ));
-
-        /*$this->add_rule('news_letter', array(
-            'field' => 'news_letter',
-            'label' => 'lang:news_letter',
-            'rules' => 'trim|required|is_natural|less_than[2]|xss_clean'
-        ));*/
-
         $this->add_rule('user_group[]', array(
             'field' => 'user_group[]',
             'label' => 'lang:user_group',

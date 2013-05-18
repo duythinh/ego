@@ -32,6 +32,13 @@
         </ul>
     </div>
 <?php endif; ?>
+<div class="control-group<?php echo (form_error('alias') ? ' error' : ''); ?>">
+    <label class="control-label"><?php echo $this->lang->line('alias'); ?></label>
+    <div class="controls input-icon">
+        <input type="text" name="alias" class="span6 m-wrap" value="<?php echo set_value('alias'); ?>" />
+        <span class="help-block"><?php echo $this->lang->line('alias_desc'); ?></span>
+    </div>
+</div>
 <div class="control-group<?php echo form_detect_error('name', true); ?>">
     <label class="control-label required"><?php echo $this->lang->line('name'); ?></label>
     <div class="controls">
@@ -98,20 +105,6 @@
     </div>
 </div>
 
-<!--<div class="control-group<?php /*echo (form_error('description') ? ' error' : ''); */?>">
-    <label class="control-label"><?php /*echo $this->lang->line('description'); */?></label>
-    <div class="controls input-icon">
-        <input type="text" name="description" class="span6 m-wrap" value="<?php /*echo set_value('description'); */?>" />
-        <span class="help-block"><?php /*echo $this->lang->line('description_desc'); */?></span>
-    </div>
-</div>-->
-<!--<div class="control-group<?php /*echo (form_error('content') ? ' error' : ''); */?>">
-    <label class="control-label"><?php /*echo $this->lang->line('content'); */?></label>
-    <div class="controls input-icon">
-        <input type="text" name="content" class="span6 m-wrap" value="<?php /*echo set_value('content'); */?>" />
-        <span class="help-block"><?php /*echo $this->lang->line('content_desc'); */?></span>
-    </div>
-</div>-->
 <div class="control-group<?php echo (form_error('category[id]') ? ' error' : ''); ?>">
     <label class="control-label">Category</label>
     <div class="controls">

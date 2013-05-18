@@ -29,6 +29,12 @@ $language = array(
     'topic' => 'Topic',
     'topic_manager' => 'Topic Manager',
     'add_new_topic' => 'Add New Topic',
+
+    'transportation'              => 'Transportation',
+    'transportation_type_manager' => 'Transportation Type Manager',
+    'add_new_transportation_type' => 'Add New Transportation Type',
+    'transportation_manager'      => 'Transportation Manager',
+    'add_new_transportation'      => 'Add New Transportation',
 );
 
 /* End of file sidebar_lang.php */

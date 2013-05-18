@@ -13,7 +13,6 @@
 <div id="dashboard">
     <!-- bof: dashboard stats -->
     <div class="span12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet">
             <div class="portlet-title">
                 <h4><i class="icon-globe"></i><?php echo $this->lang->line('heading_title'); ?></h4>
@@ -22,11 +21,11 @@
             <div class="portlet-body">
                 <div class="clearfix">
                     <div class="btn-group">
-                        <a class="btn green" href="<?php echo site_url('topic/add'); ?>">
+                        <a class="btn green" href="<?php echo site_url('transportation/transportation_type/add'); ?>">
                         <i class="icon-plus"></i> Add New
                         </a>
 
-                        <a class="btn red" href="<?php echo site_url('topic/add'); ?>">
+                        <a class="btn red" href="<?php echo site_url('transportation/transportation_type/add'); ?>">
                         <i class="icon-trash"></i> Delete Selected
                         </a>
                     </div>
@@ -42,32 +41,33 @@
                     </div>
                 </div>
 
-                <table class="table table-striped table-bordered table-hover table-advance" id="user">
+                <table class="table table-striped table-bordered table-hover table-advance" id="language">
                     <thead>
                         <tr>
-                            <th style="width: 8px;"><input type="checkbox" class="group-checkable" data-set="#user .checkboxes" /></th>
-                            <th class="hidden-480"><?php echo $this->lang->line('name'); ?></th>
+                            <th style="width: 8px;"><input type="checkbox" class="group-checkable" data-set="#language .checkboxes" /></th>
+                            <th><?php echo $this->lang->line('name'); ?></th>
                             <th class="hidden-480"><?php echo $this->lang->line('description'); ?></th>
-                            <th class="hidden-480"><?php echo $this->lang->line('content'); ?></th>
+                            <th class="hidden-767"><?php echo $this->lang->line('alias'); ?></th>
                             <th class="hidden-767"><?php echo $this->lang->line('status'); ?></th>
                             <th><?php echo $this->lang->line('action'); ?></th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        <?php if (!isset($topics) || 0 === count($topics)): ?>
+                        <?php if (!isset($transportation_types) || 0 === count($transportation_types)): ?>
                         <tr class="odd gradeX">
                             <td colspan="99"><?php echo $this->lang->line('no_results'); ?></td>
                         </tr>
-                        <?php else: foreach ($topics as $topic): ?>
+                        <?php else: foreach ($transportation_types as $transportation_type): ?>
                         <tr class="odd gradeX">
                             <td><input type="checkbox" class="checkboxes" value="1" /></td>
-                            <td><a href="<?php echo site_url('topic/edit/' . $topic->name); ?>"><?php echo $topic->name; ?></a></td>
-                            <td class="hidden-480"><?php echo $topic->description; ?></td>
-                            <td class="hidden-480"><?php echo $topic->content; ?></td>
-                            <td class="hidden-480"><?php echo $topic->status; ?></td>
+                            <td><a href="<?php echo site_url('transportation/transportation_type/edit/' . $transportation_type->alias); ?>"><?php echo $transportation_type->name; ?></a></td>
+                            <td class="hidden-480"><?php echo $transportation_type->description; ?></td>
+                            <td class="hidden-480"><?php echo $transportation_type->alias; ?></td>
+                            <td class="hidden-480"><?php echo $transportation_type->status; ?></td>
                             <td>
-                                <a href="<?php echo site_url('topic/edit/' . $topic->name); ?>" class="btn blue icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('edit'); ?>"><i class="icon-edit icon-white"></i></a>
-                                <a href="<?php echo site_url('topic/delete/' . $topic->name); ?>" class="btn red icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('delete'); ?>"><i class="icon-remove icon-white"></i></a>
+                                <a href="<?php echo site_url('transportation/transportation_type/edit/' . $transportation_type->alias); ?>" class="btn blue icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('edit'); ?>"><i class="icon-edit icon-white"></i></a>
+                                <a href="<?php echo site_url('transportation/transportation_type/delete/' . $transportation_type->alias); ?>" class="btn red icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('delete'); ?>"><i class="icon-remove icon-white"></i></a>
                             </td>
                         </tr>
                         <?php endforeach; endif; ?>
@@ -75,7 +75,6 @@
                 </table>
             </div>
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
     </div>
     <!-- eof: dashboard stats -->
 </div>

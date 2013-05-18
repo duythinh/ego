@@ -3,6 +3,8 @@
 $language = array(
     'name'                  => 'Topic name',
     'name_desc'             => 'Topic name description',
+    'alias'                 => 'URL Alias',
+    'alias_desc'            => 'A website alias is a nickname for a website and is the page\'s address on the web',
     'description'           => 'Topic description',
     'description_desc'      => 'Topic description description',
     'content'               => 'Content',

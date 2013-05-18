@@ -340,7 +340,6 @@ class MY_Model extends CI_Model
 
             foreach ($results as $index => $result) {
                 $language = $this->lang->get($result->language_id)->code;
-
                 foreach ($result as $field => $value) {
                     if (in_array($field, $this->translate_fields)) {
                         $results[$language][$field] = $value;
@@ -390,7 +389,7 @@ class MY_Model extends CI_Model
                 }
             }
         }
-
+//print_r($data_translation); exit;
         // insert data into table
         ! isset($data[$this->primary]) || $data[$this->primary] = null;
 
@@ -494,18 +493,6 @@ class MY_Model extends CI_Model
 
         return $id;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     // public function array_from_post($fields = array())
     // {

@@ -10,7 +10,7 @@ class Topic_m extends MY_Model
     {
         parent::__construct();
         $this->set_table('topic');
-        $this->set_translable(false);
+        $this->set_translable(true);
         $this->set_translate_fields(array('name', 'description','content'));
         $this->set_timestamps(true);
         foreach ($this->lang->get('translable') as $language) {
@@ -45,6 +45,11 @@ class Topic_m extends MY_Model
             'field' => 'category[]',
             'label' => 'lang:category',
             'rules' => 'trim|is_natural|intval|xss_clean'
+        ));
+        $this->add_rule('alias', array(
+            'field' => 'alias',
+            'label' => 'lang:alias',
+            'rules' => 'trim|required|alpha_dash|min_length[3]|max_length[64]|callback_unique_alias|xss_clean'
         ));
         $this->add_rule('status[]', array(
             'field' => 'status[]',

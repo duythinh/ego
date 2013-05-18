@@ -19,19 +19,18 @@
 
 
 /**
- * The User Group Controller
+ * The Transportation Controller
  *
  * @author Thinh Nguyen <thinhnguyenduy88@gmail.com>
  */
-class User_group extends BE_Controller
+class Transportation extends BE_Controller
 {
     function __construct()
     {
         parent::__construct();
         $this->config->load('common/status');
-        $this->lang->load('user/user_group');
-        $this->load->model('backend/user/user_group_m');
-
+        $this->lang->load('transportation/transportation');
+        $this->load->model('backend/transportation/transportation_m');
     }
 
     /**
@@ -42,11 +41,11 @@ class User_group extends BE_Controller
     public function index()
     {
 
-        $this->data['view'] = 'user/user_group/index';
+        $this->data['view'] = 'transportation/transportation/index';
         $this->data['active'][$this->data['view']] = true;
         $this->lang->load($this->data['view']);
 
-        $this->data['user_groups'] = $this->user_group_m->get();
+        $this->data['transportations'] = $this->transportation_m->get();
 
         $this->load->view('main_layout', $this->data);
     }
@@ -58,12 +57,12 @@ class User_group extends BE_Controller
      */
     public function add()
     {
-        $this->lang->load('user/user_group/add');
+        $this->lang->load('transportation/transportation/add');
         if ('POST' === @REQUEST_METHOD) {
             $this->validate_add();
         }
-        $this->data['view'] = 'user/user_group/add';
-        $this->data['active']['user/user_group/add'] = true;
+        $this->data['view'] = 'transportation/transportation/add';
+        $this->data['active']['transportation/transportation/add'] = true;
 
         $this->load->view('main_layout', $this->data);
     }
@@ -86,17 +85,16 @@ class User_group extends BE_Controller
             } else if (is_string($alias)) {
                 $this->db->where('alias', $alias);
             }
+            $this->data['transportation'] = $this->transportation_m->get(null, 0, 0, true);
 
-            $this->data['user_group'] = $this->user_group_m->get(null, 0, 0, true);
-
-            if (empty($this->data['user_group'])) {
-                unset($this->data['user_group']);
+            if (empty($this->data['transportation'])) {
+                unset($this->data['transportation']);
             }
         }
 
-        $this->data['view'] = 'user/user_group/edit';
-        $this->data['active']['user/user_group/edit'] = true;
-        $this->lang->load('user/user_group/edit');
+        $this->data['view'] = 'transportation/transportation/edit';
+        $this->data['active']['transportation/transportation/edit'] = true;
+        $this->lang->load('transportation/transportation/edit');
         $this->load->view('main_layout', $this->data);
     }
 
@@ -109,20 +107,20 @@ class User_group extends BE_Controller
                 $this->db->where('alias', $alias);
             }
 
-            $this->data['user_group'] = $this->user_group_m->get(null, true);
+            $this->data['language'] = $this->language_m->get(null, true);
 
-            if (empty($this->data['user_group'])) {
-                unset($this->data['user_group']);
+            if (empty($this->data['transportation'])) {
+                unset($this->data['transportation']);
             } else {
-                $this->user_group_m->delete($this->data['user_group']->id);
+                $this->language_m->delete($this->data['transportation']->id);
 
                 // redirect(full_url('language'));
             }
         }
 
-        $this->data['view'] = 'user_group/delete';
-        $this->data['active']['user_group/delete'] = true;
-        $this->lang->load('user_group/delete');
+        $this->data['view'] = 'transportation/delete';
+        $this->data['active']['transportation/delete'] = true;
+        $this->lang->load('transportation/delete');
 
         $this->load->view('main_layout', $this->data);
     }
@@ -130,17 +128,24 @@ class User_group extends BE_Controller
     private function validate_add()
     {
         // setup the form
-        $rules = $this->user_group_m->get_rules();
+        $rules = $this->transportation_m->get_rules();
         $this->form_validation->set_rules($rules);
-
         // process the form
         if (true === $this->form_validation->run()) {
-            // create new user type entity
-            $data = $this->user_group_m->post_data(array('name', 'description', 'css_class', 'alias', 'member', 'sort_order', 'status'));
+            // create new transportation type entity
+            $data = $this->transportation_m->post_data(array('transportation_type_id','name', 'description', 'content', 'alias','price_id','brand','seats','rentable','sort_order','status'));
+            $data['sort_order'] = (int)$data['sort_order'];
+            $data['price_id'] = 1;
+            $data['rentable'] = (int)$data['rentable'];
             $data['status'] = (empty($data['status']) ? 0 : array_sum($data['status']));
-            $this->user_group_m->create($data);
 
-            redirect(full_url('user/user_group'));
+            foreach ($this->input->post('transportation_type') as $transportation_types) {
+                $data['transportation_type_id'] = $transportation_types;
+            }
+            //$data['transportation_type_id'] = (int)$data['transportation_type'];
+
+            $this->transportation_m->create($data);
+            redirect(full_url('transportation/transportation'));
         }
     }
 
@@ -149,17 +154,24 @@ class User_group extends BE_Controller
         $id = (int)$this->input->post('id');
 
         // setup the form
-        $rules = $this->user_group_m->get_rules();
+        $rules = $this->transportation_m->get_rules();
         $this->form_validation->set_rules($rules);
 
         // process the form
         if (true === $this->form_validation->run()) {
-            // create new user type entity
-            $data = $this->user_group_m->post_data(array('name', 'description', 'alias', 'status'));
+            // create new transportation type entity
+            $data = $this->transportation_m->post_data(array('transportation_type_id','name', 'description', 'content', 'alias','price_id','brand','seats','rentable','sort_order','status'));
+            $data['sort_order'] = (int)$data['sort_order'];
+            $data['price_id'] = 1;
+            $data['rentable'] = (int)$data['rentable'];
             $data['status'] = (empty($data['status']) ? 0 : array_sum($data['status']));
-            $this->user_group_m->update($id, $data);
 
-            redirect(full_url('user/user_group'));
+            foreach ($this->input->post('transportation_type') as $transportation_types) {
+                $data['transportation_type_id'] = $transportation_types;
+            }
+            $this->transportation_m->update($id, $data);
+
+            redirect(full_url('transportation/transportation'));
         }
     }
 
@@ -173,6 +185,5 @@ class User_group extends BE_Controller
         return false;
     }
 }
-
-/* End of file user_group.php */
-/* Location: ./application/controllers/backend/user/user_group.php */
+/* End of file transportation.php */
+/* Location: ./application/controllers/backend/transportation/transportation.php */

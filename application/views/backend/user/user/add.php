@@ -66,7 +66,7 @@
 </div>
 
 <div class="control-group<?php echo (form_error('news_letter ') ? ' error' : ''); ?>">
-    <label class="control-label"><?php echo $this->lang->line('news_letter '); ?></label>
+    <label class="control-label"><?php echo $this->lang->line('news_letter'); ?></label>
     <div class="controls">
         <label class="radio"><input type="radio" name="news_letter " value="1"<?php echo set_radio('news_letter ', '1', false); ?> /> Yes</label>
         <label class="radio"><input type="radio" name="news_letter " value="0"<?php echo set_radio('news_letter ', '0', true); ?> /> No</label>
@@ -77,7 +77,6 @@
     <label class="control-label">User Group</label>
     <div class="controls">
         <select name="user_group[]" id="user_group" class="span6 select2" multiple>
-            <option value=""></option>
             <option value="1">Admin</option>
             <option value="2">Mod</option>
             <option value="3">Member</option>

@@ -22,11 +22,11 @@
             <div class="portlet-body">
                 <div class="clearfix">
                     <div class="btn-group">
-                        <a class="btn green" href="<?php echo site_url('topic/add'); ?>">
+                        <a class="btn green" href="<?php echo site_url('transportation/add'); ?>">
                         <i class="icon-plus"></i> Add New
                         </a>
 
-                        <a class="btn red" href="<?php echo site_url('topic/add'); ?>">
+                        <a class="btn red" href="<?php echo site_url('transportation/add'); ?>">
                         <i class="icon-trash"></i> Delete Selected
                         </a>
                     </div>
@@ -42,32 +42,32 @@
                     </div>
                 </div>
 
-                <table class="table table-striped table-bordered table-hover table-advance" id="user">
+                <table class="table table-striped table-bordered table-hover table-advance" id="transportation">
                     <thead>
                         <tr>
-                            <th style="width: 8px;"><input type="checkbox" class="group-checkable" data-set="#user .checkboxes" /></th>
+                            <th style="width: 8px;"><input type="checkbox" class="group-checkable" data-set="#transportation .checkboxes" /></th>
                             <th class="hidden-480"><?php echo $this->lang->line('name'); ?></th>
                             <th class="hidden-480"><?php echo $this->lang->line('description'); ?></th>
-                            <th class="hidden-480"><?php echo $this->lang->line('content'); ?></th>
+                            <th class="hidden-480"><?php echo $this->lang->line('brand'); ?></th>
                             <th class="hidden-767"><?php echo $this->lang->line('status'); ?></th>
                             <th><?php echo $this->lang->line('action'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (!isset($topics) || 0 === count($topics)): ?>
+                        <?php if (!isset($transportations) || 0 === count($transportations)): ?>
                         <tr class="odd gradeX">
                             <td colspan="99"><?php echo $this->lang->line('no_results'); ?></td>
                         </tr>
-                        <?php else: foreach ($topics as $topic): ?>
+                        <?php else: foreach ($transportations as $transportation): ?>
                         <tr class="odd gradeX">
                             <td><input type="checkbox" class="checkboxes" value="1" /></td>
-                            <td><a href="<?php echo site_url('topic/edit/' . $topic->name); ?>"><?php echo $topic->name; ?></a></td>
-                            <td class="hidden-480"><?php echo $topic->description; ?></td>
-                            <td class="hidden-480"><?php echo $topic->content; ?></td>
-                            <td class="hidden-480"><?php echo $topic->status; ?></td>
+                            <td><a href="<?php echo site_url('transportation/edit/' . $transportation->alias); ?>"><?php echo $transportation->name; ?></a></td>
+                            <td class="hidden-480"><?php echo $transportation->description; ?></td>
+                            <td class="hidden-480"><?php echo $transportation->brand; ?></td>
+                            <td class="hidden-480"><?php echo $transportation->status; ?></td>
                             <td>
-                                <a href="<?php echo site_url('topic/edit/' . $topic->name); ?>" class="btn blue icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('edit'); ?>"><i class="icon-edit icon-white"></i></a>
-                                <a href="<?php echo site_url('topic/delete/' . $topic->name); ?>" class="btn red icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('delete'); ?>"><i class="icon-remove icon-white"></i></a>
+                                <a href="<?php echo site_url('transportation/transportation/edit/' . $transportation->alias); ?>" class="btn blue icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('edit'); ?>"><i class="icon-edit icon-white"></i></a>
+                                <a href="<?php echo site_url('transportation/transportation/delete/' . $transportation->alias); ?>" class="btn red icn-only tooltips" data-placement="top" data-original-title="<?php echo $this->lang->line('delete'); ?>"><i class="icon-remove icon-white"></i></a>
                             </td>
                         </tr>
                         <?php endforeach; endif; ?>

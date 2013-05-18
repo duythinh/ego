@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Created by Cimex Team.
  * ======================
@@ -17,20 +17,21 @@
  * maximum extent possible under the law.
  */
 
+
 /**
- * The Category Type Controller
+ * The Transportation Type Controller
  *
- * @author Vinh Trinh <vinhtrinh@rubikin.com>
+ * @author Thinh Nguyen <thinhnguyenduy88@gmail.com>
  */
-class Category_type extends BE_Controller
+class Transportation_type extends BE_Controller
 {
     function __construct()
     {
         parent::__construct();
-
         $this->config->load('common/status');
-        $this->lang->load('category/category_type');
-        $this->load->model('backend/category/category_type_m');
+        $this->lang->load('transportation/transportation_type');
+        $this->load->model('backend/transportation/transportation_type_m');
+
     }
 
     /**
@@ -40,11 +41,12 @@ class Category_type extends BE_Controller
      */
     public function index()
     {
-        $this->data['view'] = 'category/category_type/index';
+
+        $this->data['view'] = 'transportation/transportation_type/index';
         $this->data['active'][$this->data['view']] = true;
         $this->lang->load($this->data['view']);
 
-        $this->data['category_types'] = $this->category_type_m->get();
+        $this->data['transportation_types'] = $this->transportation_type_m->get();
 
         $this->load->view('main_layout', $this->data);
     }
@@ -56,14 +58,12 @@ class Category_type extends BE_Controller
      */
     public function add()
     {
-        $this->lang->load('category/category_type/add');
-
+        $this->lang->load('transportation/transportation_type/add');
         if ('POST' === @REQUEST_METHOD) {
             $this->validate_add();
         }
-
-        $this->data['view'] = 'category/category_type/add';
-        $this->data['active']['category/category_type/add'] = true;
+        $this->data['view'] = 'transportation/transportation_type/add';
+        $this->data['active']['transportation/transportation_type/add'] = true;
 
         $this->load->view('main_layout', $this->data);
     }
@@ -80,24 +80,23 @@ class Category_type extends BE_Controller
             $this->validate_edit();
         }
 
-        if ( ! empty($alias)) {
+        if (!empty($alias)) {
             if (is_numeric($alias)) {
                 $this->db->where('id', $alias);
             } else if (is_string($alias)) {
                 $this->db->where('alias', $alias);
             }
 
-            $this->data['category_type'] = $this->category_type_m->get(null, 0, 0, true);
+            $this->data['transportation_type'] = $this->transportation_type_m->get(null, 0, 0, true);
 
-            if (empty($this->data['category_type'])) {
-                unset($this->data['category_type']);
+            if (empty($this->data['transportation_type'])) {
+                unset($this->data['transportation_type']);
             }
         }
 
-        $this->data['view'] = 'category/category_type/edit';
-        $this->data['active']['category/category_type/edit'] = true;
-        $this->lang->load('category/category_type/edit');
-
+        $this->data['view'] = 'transportation/transportation_type/edit';
+        $this->data['active']['transportation/transportation_type/edit'] = true;
+        $this->lang->load('transportation/transportation_type/edit');
         $this->load->view('main_layout', $this->data);
     }
 
@@ -109,21 +108,20 @@ class Category_type extends BE_Controller
             } else if (is_string($alias)) {
                 $this->db->where('alias', $alias);
             }
+            $this->data['transportation_type'] = $this->transportation_type_m->get(null, true);
 
-            $this->data['language'] = $this->language_m->get(null, true);
-
-            if (empty($this->data['language'])) {
-                unset($this->data['language']);
+            if (empty($this->data['transportation_type'])) {
+                unset($this->data['transportation_type']);
             } else {
-                $this->language_m->delete($this->data['language']->id);
+                $this->transportation_type_m->delete($this->data['transportation_type']->id);
 
                 // redirect(full_url('language'));
             }
         }
 
-        $this->data['view'] = 'language/delete';
-        $this->data['active']['language/delete'] = true;
-        $this->lang->load('language/delete');
+        $this->data['view'] = 'transportation_type/delete';
+        $this->data['active']['transportation_type/delete'] = true;
+        $this->lang->load('transportation_type/delete');
 
         $this->load->view('main_layout', $this->data);
     }
@@ -131,49 +129,36 @@ class Category_type extends BE_Controller
     private function validate_add()
     {
         // setup the form
-        $rules = $this->category_type_m->get_rules();
+        $rules = $this->transportation_type_m->get_rules();
         $this->form_validation->set_rules($rules);
-
         // process the form
         if (true === $this->form_validation->run()) {
-            // create new category type entity
-            $data = $this->category_type_m->post_data(array('name', 'description', 'alias', 'status'));
+            // create new transportation type entity
+            $data = $this->transportation_type_m->post_data(array('name', 'description','alias','status'));
             $data['status'] = (empty($data['status']) ? 0 : array_sum($data['status']));
-            $this->category_type_m->create($data);
-            redirect(full_url('category/category_type'));
+            $this->transportation_type_m->create($data);
+            redirect(full_url('transportation/transportation_type'));
         }
     }
 
     private function validate_edit()
     {
         $id = (int)$this->input->post('id');
-
         // setup the form
-        $rules = $this->category_type_m->get_rules();
+        $rules = $this->transportation_type_m->get_rules();
         $this->form_validation->set_rules($rules);
 
         // process the form
         if (true === $this->form_validation->run()) {
-            // create new category type entity
-            $data = $this->category_type_m->post_data(array('name', 'description', 'alias', 'status'));
+            // create new transportation type entity
+            $data = $this->transportation_type_m->post_data(array('name', 'description', 'alias', 'status'));
             $data['status'] = (empty($data['status']) ? 0 : array_sum($data['status']));
-            $this->category_type_m->update($id, $data);
+            $this->transportation_type_m->update($id, $data);
 
-            redirect(full_url('category/category_type'));
+            redirect(full_url('transportation/transportation_type'));
         }
-    }
-
-    public function null_or_min_length($str = null)
-    {
-        if (empty($str) || 3 <= strlen($str)) {
-            return true;
-        }
-
-        $this->form_validation->set_message('null_or_min_length', sprintf($this->lang->line('null_or_min_length'), '%s', 3));
-
-        return false;
     }
 }
 
-/* End of file category_type.php */
-/* Location: ./application/controllers/backend/category/category_type.php */
+/* End of file transportation_type.php */
+/* Location: ./application/controllers/backend/transportation/transportation_type.php */

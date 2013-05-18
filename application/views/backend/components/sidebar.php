@@ -64,7 +64,7 @@
         </li>
         <!-- eof: user -->
 
-        <!-- bof: user -->
+        <!-- bof: topic -->
         <li<?php echo (isset($active['topic']) || isset($active['topic']) ? ' class="active"' : null); ?>>
             <a href="<?php echo site_url('topic'); ?>"><i class="icon-folder-open"></i>
                 <span class="title"><?php echo $this->lang->line('topic'); ?></span><span class="arrow<?php echo (isset($active['topic']) || isset($active['topic']) ? ' open"></span><span class="selected' : null); ?>"></span></a>
@@ -74,7 +74,22 @@
                 <li<?php echo (isset($active['topic/topic/add']) ? ' class="active"' : null); ?>><a href="<?php echo site_url('topic/add'); ?>"><i class="icon-plus"></i> <?php echo $this->lang->line('add_new_topic'); ?></a></li>
             </ul>
         </li>
-        <!-- eof: user -->
+        <!-- eof: topic -->
+
+        <!-- bof: transportation -->
+        <li<?php echo (isset($active['transportation']) || isset($active['transportation_type']) ? ' class="active"' : null); ?>>
+            <a href="<?php echo site_url('transportation'); ?>"><i class="icon-folder-open"></i> <span class="title"><?php echo $this->lang->line('transportation'); ?></span><span class="arrow<?php echo (isset($active['transportation']) || isset($active['transportation_type']) ? ' open"></span><span class="selected' : null); ?>"></span></a>
+
+            <ul class="sub-menu">
+                <li<?php echo (isset($active['transportation/transportation_type/index']) ? ' class="active"' : null); ?>><a href="<?php echo site_url('transportation/transportation_type'); ?>"><i class="icon-cogs"></i> <?php echo $this->lang->line('transportation_type_manager'); ?></a></li>
+                <li<?php echo (isset($active['transportation/transportation_type/add']) ? ' class="active"' : null); ?>><a href="<?php echo site_url('transportation/transportation_type/add'); ?>"><i class="icon-plus"></i> <?php echo $this->lang->line('add_new_transportation_type'); ?></a></li>
+
+                <li<?php echo (isset($active['transportation/transportation/index']) ? ' class="active"' : null); ?>><a href="<?php echo site_url('transportation/transportation'); ?>"><i class="icon-cogs"></i> <?php echo $this->lang->line('transportation_manager'); ?></a></li>
+                <li<?php echo (isset($active['transportation/transportation/add']) ? ' class="active"' : null); ?>><a href="<?php echo site_url('transportation/transportation/add'); ?>"><i class="icon-plus"></i> <?php echo $this->lang->line('add_new_transportation'); ?></a></li>
+            </ul>
+        </li>
+        <!-- eof: transportation -->
+
     </ul>
 </div>
 <!-- eof: sidebar -->

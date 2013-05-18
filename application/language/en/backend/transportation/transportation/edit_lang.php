@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $language = array(
-    'heading_title'       => 'Edit Topic',
+    'heading_title'       => 'Edit Transportation',
     'heading_description' => 'statistics and more',
 
     'error'         => 'Error',

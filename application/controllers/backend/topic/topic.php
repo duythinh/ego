@@ -70,20 +70,20 @@ class Topic extends BE_Controller
     /**
      * Edit action
      *
-     * @param  mixed $alias the record identifier
+     * @param  mixed $name the record identifier
      * @return void
      */
-    public function edit($alias = null)
+    public function edit($name = null)
     {
         if ('POST' === @REQUEST_METHOD) {
             $this->validate_edit();
         }
 
-        if (!empty($alias)) {
-            if (is_numeric($alias)) {
-                $this->db->where('id', $alias);
-            } else if (is_string($alias)) {
-                $this->db->where('alias', $alias);
+        if (!empty($name)) {
+            if (is_numeric($name)) {
+                $this->db->where('id', $name);
+            } else if (is_string($name)) {
+                $this->db->where('name', $name);
             }
 
             $this->data['topic'] = $this->topic_m->get(null, 0, 0, true);
@@ -99,13 +99,13 @@ class Topic extends BE_Controller
         $this->load->view('main_layout', $this->data);
     }
 
-    public function delete($alias = null)
+    public function delete($name = null)
     {
-        if (!empty($alias)) {
-            if (is_numeric($alias)) {
-                $this->db->where('id', $alias);
-            } else if (is_string($alias)) {
-                $this->db->where('alias', $alias);
+        if (!empty($name)) {
+            if (is_numeric($name)) {
+                $this->db->where('id', $name);
+            } else if (is_string($name)) {
+                $this->db->where('alias', $name);
             }
 
             $this->data['language'] = $this->language_m->get(null, true);
@@ -127,7 +127,7 @@ class Topic extends BE_Controller
     }
 
     private function validate_add()
-    { //var_dump($this->form_validation->run());die('here');
+    {
         // setup the form
         $rules = $this->topic_m->get_rules();
         $this->form_validation->set_rules($rules);
@@ -135,16 +135,12 @@ class Topic extends BE_Controller
         // process the form
         if (true === $this->form_validation->run()) {
             // create new topic type entity
-            //var_dump($this->session->get('user')->id); die('here');
-            $data = $this->topic_m->post_data(array('user_id', 'name', 'description', 'content', 'status'));
+            $data = $this->topic_m->post_data(array('user_id','alias', 'name', 'description', 'content', 'status'));
             $data['status'] = (empty($data['status']) ? 0 : array_sum($data['status']));
-//            $data['name'] = array_sum($data['name']);
-//            $data['description'] = array_sum($data['description']);
-//            $data['content'] = array_sum($data['content']);
             $data['user_id'] = $this->session->get('user')->id;
             $id = $this->topic_m->create($data);
-            
             $this->topic_m->set_table('topic_has_category');
+            $this->topic_m->set_translable(false);
             $this->topic_m->set_timestamps(false);
             foreach ($this->topic_m->post_data(array('category')) as $category) {
                 foreach ($category as $categories) {
@@ -171,8 +167,9 @@ class Topic extends BE_Controller
         // process the form
         if (true === $this->form_validation->run()) {
             // create new topic type entity
-            $data = $this->topic_m->post_data(array('name', 'description', 'alias', 'status'));
+            $data = $this->topic_m->post_data(array('name', 'description', 'content', 'status'));
             $data['status'] = (empty($data['status']) ? 0 : array_sum($data['status']));
+
             $this->topic_m->update($id, $data);
 
             redirect(full_url('topic/topic'));

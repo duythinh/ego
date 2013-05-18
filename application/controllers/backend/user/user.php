@@ -73,21 +73,19 @@ class User extends BE_Controller
      * @param  mixed $alias the record identifier
      * @return void
      */
-    public function edit($alias = null)
+    public function edit($name = null)
     {
         if ('POST' === @REQUEST_METHOD) {
             $this->validate_edit();
         }
 
-        if (!empty($alias)) {
-            if (is_numeric($alias)) {
-                $this->db->where('id', $alias);
-            } else if (is_string($alias)) {
-                $this->db->where('alias', $alias);
+        if (!empty($name)) {
+            if (is_numeric($name)) {
+                $this->db->where('id', $name);
+            } else if (is_string($name)) {
+                $this->db->where('name', $name);
             }
-
             $this->data['user'] = $this->user_m->get(null, 0, 0, true);
-
             if (empty($this->data['user'])) {
                 unset($this->data['user']);
             }
@@ -99,29 +97,29 @@ class User extends BE_Controller
         $this->load->view('main_layout', $this->data);
     }
 
-    public function delete($alias = null)
+    public function delete($name = null)
     {
-        if (!empty($alias)) {
-            if (is_numeric($alias)) {
-                $this->db->where('id', $alias);
-            } else if (is_string($alias)) {
-                $this->db->where('alias', $alias);
+        if (!empty($name)) {
+            if (is_numeric($name)) {
+                $this->db->where('id', $name);
+            } else if (is_string($name)) {
+                $this->db->where('alias', $name);
             }
 
             $this->data['language'] = $this->language_m->get(null, true);
 
-            if (empty($this->data['language'])) {
-                unset($this->data['language']);
+            if (empty($this->data['user'])) {
+                unset($this->data['user']);
             } else {
-                $this->language_m->delete($this->data['language']->id);
+                $this->language_m->delete($this->data['user']->id);
 
                 // redirect(full_url('language'));
             }
         }
 
-        $this->data['view'] = 'language/delete';
-        $this->data['active']['language/delete'] = true;
-        $this->lang->load('language/delete');
+        $this->data['view'] = 'user/delete';
+        $this->data['active']['user/delete'] = true;
+        $this->lang->load('user/delete');
 
         $this->load->view('main_layout', $this->data);
     }
