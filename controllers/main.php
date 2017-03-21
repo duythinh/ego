@@ -6,6 +6,16 @@ class Main extends FE_Controller
 	{
 		$this->load->view('welcome_message');
 	}
+
+	public function test()
+	{
+		$this->load->view('welcome_message');
+	}
+
+	public function abc()
+	{
+		$this->load->view('welcome_message');
+	}
 }
 
 /* End of file welcome.php */
