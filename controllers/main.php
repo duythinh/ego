@@ -7,10 +7,14 @@ class Main extends FE_Controller
 		$this->load->view('welcome_message');
 	}
 
-	public function FunctionName($value='')
+	public function test()
 	{
-		
-		# code...
+		$this->load->view('welcome_message');
+	}
+
+	public function abc()
+	{
+		$this->load->view('welcome_message');
 	}
 }
 
